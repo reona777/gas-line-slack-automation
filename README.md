@@ -9,7 +9,7 @@
 
 | サンプル | 機能 | 使用サービス |
 |---|---|---|
-| [01 LINE→Slack自動ルーティング](./01_line-to-slack-routing/) | LINEメッセージをキーワードで自動振り分け | LINE Messaging API / Slack |
+| [01 LINE→Slack自動ルーティング](./01_line-to-slack-routing/) | LINEメッセージをキーワードで自動振り分け・Slackから直接返信（双方向） | LINE Messaging API / Slack |
 | [02 スプレッドシート自動同期](./02_spreadsheet-auto-sync/) | 受注登録・ステータス変更を即時Slack通知 | Google Sheets / Slack |
 | [03 繰り返し作業の自動化](./03_recurring-automation/) | 朝礼チェックリスト・期限アラート・月次レポート | Google Sheets / Slack |
 
@@ -93,14 +93,55 @@ gas-line-slack-automation/
 ### 01 LINE → Slack 自動ルーティング
 
 LINEへのメッセージをキーワード解析し、「営業」「サポート」「総合」の各Slackチャンネルへ自動転送します。
+Slack側からLINEユーザーへ直接返信する双方向連携にも対応しています。
 
 **主な機能**
-- キーワードマッチによるルーティング（カスタマイズ可能）
+- キーワードマッチによるルーティング（条件は自由にカスタマイズ可能）
 - LINE署名検証によるセキュリティ対応
 - 送信者ID・転送先チャンネルをSlack通知に付与
+- Slackスラッシュコマンドでのダイレクト返信
+
+**転送条件のカスタマイズ**
+
+`ROUTING_MAP` にキーワードとチャンネルの対応を追加・変更するだけで振り分けルールを自由に設定できます。
+
+```javascript
+var ROUTING_MAP = [
+  { keywords: ["注文", "購入", "見積"],        channel: "sales"   },
+  { keywords: ["問い合わせ", "不具合", "返品"], channel: "support" },
+  { keywords: ["採用", "応募", "面接"],        channel: "hr"      }, // 追加例
+  // 上記以外はすべて general へ
+];
+```
+
+キーワードの追加・チャンネル名の変更・新しいルールの挿入、すべてこの配列を編集するだけで反映されます。
+
+**Slack → LINE ダイレクト返信**
+
+Slackのスラッシュコマンドを使い、LINEユーザーへ担当者から直接メッセージを送信できます。
+
+```
+担当者（Slack）
+  ↓  /line-reply [LINE UserID] [メッセージ本文]
+GAS Webアプリ（Slash Command エンドポイント）
+  ↓  LINE Push Message API
+LINEユーザー（個人チャット）
+```
+
+スラッシュコマンドの使用例：
+
+```
+/line-reply U1234567890abcdef ご連絡ありがとうございます。担当の山田です。
+```
+
+**Slack → LINE 返信の追加セットアップ**
+
+1. [Slack API](https://api.slack.com/apps) でアプリを作成し「Slash Commands」に `/line-reply` を追加
+2. Request URL にGASのWebアプリURLを設定
+3. `Code.gs` の `doPost` 関数でスラッシュコマンドのリクエストを受け取り、LINE Push APIへ転送
 
 **トリガー設定**
-- Webアプリとしてデプロイし、URLをLINE DevelopersのWebhook URLに登録
+- Webアプリとしてデプロイし、URLをLINE DevelopersのWebhook URLおよびSlack Slash CommandのRequest URLに登録
 
 ---
 
