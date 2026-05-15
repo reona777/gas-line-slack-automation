@@ -1,0 +1,15 @@
+# 実トークン・シークレットを含むファイルは絶対にコミットしない
+.env
+secrets.json
+credentials.json
+
+# Clasp認証情報
+.clasprc.json
+
+# OS生成ファイル
+.DS_Store
+Thumbs.db
+
+# エディタ設定
+.vscode/
+.idea/
