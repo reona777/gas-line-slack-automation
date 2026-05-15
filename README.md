@@ -12,6 +12,7 @@
 | [01 LINE→Slack自動ルーティング](./01_line-to-slack-routing/) | LINEメッセージをキーワードで自動振り分け・Slackから直接返信（双方向） | LINE Messaging API / Slack |
 | [02 スプレッドシート自動同期](./02_spreadsheet-auto-sync/) | 受注登録・ステータス変更を即時Slack通知 | Google Sheets / Slack |
 | [03 繰り返し作業の自動化](./03_recurring-automation/) | 朝礼チェックリスト・期限アラート・月次レポート | Google Sheets / Slack |
+| [04 Playwright スクレイピング→スプレッドシート同期](./04_playwright-scraping-to-sheets/) | Web商品情報を自動収集しスプレッドシートへ差分同期 | Playwright / Python / Google Sheets API |
 
 ---
 
@@ -80,10 +81,16 @@ gas-line-slack-automation/
 │   ├── .clasp.json
 │   ├── appsscript.json
 │   └── Code.gs
-└── 03_recurring-automation/    # 繰り返し作業の自動化
-    ├── .clasp.json
-    ├── appsscript.json
-    └── Code.gs
+├── 03_recurring-automation/    # 繰り返し作業の自動化
+│   ├── .clasp.json
+│   ├── appsscript.json
+│   └── Code.gs
+└── 04_playwright-scraping-to-sheets/   # スクレイピング→スプレッドシート同期（Python）
+    ├── main.py
+    ├── scraper.py
+    ├── sheets_sync.py
+    ├── requirements.txt
+    └── README.md
 ```
 
 ---
