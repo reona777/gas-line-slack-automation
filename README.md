@@ -13,6 +13,12 @@ LINEメッセージの自動振り分け・受注通知・定期レポート・W
 | [03 繰り返し作業の自動化](./03_recurring-automation/) | 朝礼チェックリスト・期限アラート・月次レポートを自動送信 | Google Sheets / Slack |
 | [04 Playwright スクレイピング→スプレッドシート同期](./04_playwright-scraping-to-sheets/) | Web商品情報を自動収集しスプレッドシートへ差分同期 | Playwright / Python / Google Sheets API |
 
+## 背景・導入経緯
+
+業務自動化に取り組む中で、LINE・Slack・スプレッドシートを組み合わせたパターンを繰り返し実装する機会があった。毎回ゼロから書き直すのではなく、再利用できる形でまとめておくことを目的に作成した。
+
+GAS はサーバー不要・Google サービスとの連携が容易という点で中小企業や個人の業務自動化に適しており、実務で動かしたパターンを汎用化してテンプレート集にしている。GAS 単体では難しいヘッドレスブラウザ処理は Python + Playwright で補完する構成もサンプルとして収録した。
+
 ## 技術スタック
 
 ![Google Apps Script](https://img.shields.io/badge/Google%20Apps%20Script-4285F4?style=flat&logo=google&logoColor=white)
