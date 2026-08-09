@@ -4,14 +4,18 @@
 // また定期実行で前日分のサマリーを送信します。
 // ============================================================
 
-// ---- 設定値（実際の値に置き換えてください） ----------------
-var CONFIG = {
-  SPREADSHEET_ID: "YOUR_SPREADSHEET_ID_HERE",
-  SHEET_NAME: "受注管理",
+// ---- 設定値 --------------------------------------------------
+// 「プロジェクトの設定 → スクリプトプロパティ」に登録してください。
+// コードに直接書くと、リポジトリを共有した時点で漏れます。
+var PROPS = PropertiesService.getScriptProperties();
 
-  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/XXXX/YYYY/spreadsheet_dummy",
-  SLACK_CHANNEL_NOTIFY:  "#営業通知",
-  SLACK_CHANNEL_SUMMARY: "#日次レポート"
+var CONFIG = {
+  SPREADSHEET_ID: PROPS.getProperty("SPREADSHEET_ID"),
+  SHEET_NAME: PROPS.getProperty("SHEET_NAME") || "受注管理",
+
+  SLACK_WEBHOOK_URL: PROPS.getProperty("SLACK_WEBHOOK_URL"),
+  SLACK_CHANNEL_NOTIFY:  PROPS.getProperty("SLACK_CHANNEL_NOTIFY")  || "#営業通知",
+  SLACK_CHANNEL_SUMMARY: PROPS.getProperty("SLACK_CHANNEL_SUMMARY") || "#日次レポート"
 };
 
 // スプレッドシートの列定義（A列=0始まり）

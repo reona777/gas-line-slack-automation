@@ -3,15 +3,19 @@
 // 定期レポート送信・期限リマインダー・月次集計を自動化します。
 // ============================================================
 
-// ---- 設定値（実際の値に置き換えてください） ----------------
-var CONFIG = {
-  SPREADSHEET_ID: "YOUR_SPREADSHEET_ID_HERE",
+// ---- 設定値 --------------------------------------------------
+// 「プロジェクトの設定 → スクリプトプロパティ」に登録してください。
+// コードに直接書くと、リポジトリを共有した時点で漏れます。
+var PROPS = PropertiesService.getScriptProperties();
 
-  SLACK_WEBHOOK_URL: "https://hooks.slack.com/services/XXXX/YYYY/recurring_dummy",
+var CONFIG = {
+  SPREADSHEET_ID: PROPS.getProperty("SPREADSHEET_ID"),
+
+  SLACK_WEBHOOK_URL: PROPS.getProperty("SLACK_WEBHOOK_URL"),
   SLACK_CHANNELS: {
-    reminder: "#リマインダー",
-    report:   "#月次レポート",
-    checklist:"#朝会"
+    reminder:  PROPS.getProperty("SLACK_CHANNEL_REMINDER")  || "#リマインダー",
+    report:    PROPS.getProperty("SLACK_CHANNEL_REPORT")    || "#月次レポート",
+    checklist: PROPS.getProperty("SLACK_CHANNEL_CHECKLIST") || "#朝会"
   }
 };
 
