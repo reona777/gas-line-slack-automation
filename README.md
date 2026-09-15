@@ -121,12 +121,14 @@ gas-line-slack-automation/
 │   ├── .clasp.json
 │   ├── appsscript.json
 │   └── Code.gs
-└── 04_playwright-scraping-to-sheets/   # スクレイピング→スプレッドシート同期
-    ├── main.py
-    ├── scraper.py
-    ├── sheets_sync.py
-    ├── requirements.txt
-    └── README.md
+├── 04_playwright-scraping-to-sheets/   # スクレイピング→スプレッドシート同期
+│   ├── main.py
+│   ├── scraper.py
+│   ├── sheets_sync.py
+│   ├── requirements.txt
+│   └── README.md
+├── LICENSE
+└── README.md
 ```
 
 各サンプルは独立したGASプロジェクトです（それぞれに `.clasp.json` があります）。
